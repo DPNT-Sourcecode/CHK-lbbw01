@@ -25,14 +25,14 @@ namespace BeFaster.App.Solutions.CHK
                     return -1;
             }
 
-            var total = itemDictionary['C'] * 20 + itemDictionary['D'] * 15;
-            if (itemDictionary['A'] >= 3)
-                total += (itemDictionary['A'] % 3) * 50 + (itemDictionary['A'] / 3) * 130;
-            if (itemDictionary['B'] >= 2)
-                total += (itemDictionary['B'] % 2) * 30 + (itemDictionary['B'] / 2) * 45;
+            var total = (itemDictionary['A'] % 3) * 50 + (itemDictionary['A'] / 3) * 130 +
+                (itemDictionary['B'] % 2) * 30 + (itemDictionary['B'] / 2) * 45 +
+                itemDictionary['C'] * 20 +
+                itemDictionary['D'] * 15;
             
             return total;
         }
     }
 }
+
 

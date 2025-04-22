@@ -19,8 +19,8 @@ namespace BeFaster.App.Solutions.CHK
 
             foreach (var sku in skus)
             {
-                if (itemDictionary.ContainsKey(sku))
-                    itemDictionary[sku]++;
+                if (itemDictionary.TryGetValue(sku, out int value))
+                    itemDictionary[sku] = ++value;
                 else
                     return -1;
             }
@@ -34,5 +34,6 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 

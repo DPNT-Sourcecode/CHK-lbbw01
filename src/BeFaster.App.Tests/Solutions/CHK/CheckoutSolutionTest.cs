@@ -1,5 +1,4 @@
 ﻿using BeFaster.App.Solutions.CHK;
-using BeFaster.App.Solutions.SUM;
 
 namespace BeFaster.App.Tests.Solutions.CHK
 {
@@ -11,10 +10,11 @@ namespace BeFaster.App.Tests.Solutions.CHK
         [TestCase("ABBB", ExpectedResult = 125)]
         [TestCase("CAAAAACD", ExpectedResult = 285)]
         [TestCase("BADABCAB", ExpectedResult = 240)]
-        public int ComputeSum(string? skus)
+        public int ComputeCheckout(string? skus)
         {
             return new CheckoutSolution().Checkout(skus);
         }
     }
 }
+
 

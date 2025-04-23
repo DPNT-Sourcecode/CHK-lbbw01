@@ -22,4 +22,3 @@ namespace BeFaster.App.Solutions.CHK
         public IOffer? Offer { get; } = null;
     }
 }
-

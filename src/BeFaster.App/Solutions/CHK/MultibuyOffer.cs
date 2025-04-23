@@ -31,8 +31,9 @@ namespace BeFaster.App.Solutions.CHK
         {
             var total = 0;
             var currentAmount = amount;
-            foreach ((int itemAmountForOfferm, int bulkBuyPrice) in Offers)
+            for (var i = Offers.Count-1; i >=0; i--)
             {
+                (int itemAmountForOfferm, int bulkBuyPrice) = Offers[i];
                 total += (currentAmount / itemAmountForOfferm) * bulkBuyPrice;
                 currentAmount = currentAmount % itemAmountForOfferm;
             }
@@ -40,3 +41,4 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+

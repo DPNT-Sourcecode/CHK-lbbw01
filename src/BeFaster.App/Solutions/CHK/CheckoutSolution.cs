@@ -14,7 +14,8 @@ namespace BeFaster.App.Solutions.CHK
                 {'A', 0},
                 {'B', 0},
                 {'C', 0},
-                {'D', 0}
+                {'D', 0},
+                {'E', 0}
             };
 
             foreach (var sku in skus)
@@ -25,12 +26,18 @@ namespace BeFaster.App.Solutions.CHK
                     return -1;
             }
 
-            var total = (itemDictionary['A'] % 3) * 50 + (itemDictionary['A'] / 3) * 130 +
-                (itemDictionary['B'] % 2) * 30 + (itemDictionary['B'] / 2) * 45 +
+            itemDictionary['B'] -= itemDictionary['E'] / 2;
+
+            var total = (itemDictionary['A'] / 5) * 200 + ((itemDictionary['A'] % 5)/ 3) * 130 + ((itemDictionary['A'] % 5) % 3) * 50 +
                 itemDictionary['C'] * 20 +
-                itemDictionary['D'] * 15;
-            
+                itemDictionary['D'] * 15 +
+                itemDictionary['E'] * 40;
+
+            if (itemDictionary['B'] > 0)
+                total += (itemDictionary['B'] % 2) * 30 + (itemDictionary['B'] / 2) * 45;
+
             return total;
         }
     }
 }
+

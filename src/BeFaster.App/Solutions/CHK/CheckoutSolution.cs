@@ -80,14 +80,19 @@ namespace BeFaster.App.Solutions.CHK
             var total = 0;
             for (var c = 'A'; c <= 'Z'; c++)
             {
-                if (itemPrices[c].Offer is null || itemPrices[c].Offer is not ISameItemOffer)
-                    total += itemDictionary[c] * itemPrices[c].Price;
-                else
-                    total += (itemPrices[c].Offer as ISameItemOffer).Checkout(itemDictionary[c]);
+                var amount = itemDictionary[c];
+                if (amount > 0)
+                {
+                    if (itemPrices[c].Offer is null || itemPrices[c].Offer is not ISameItemOffer)
+                        total += amount * itemPrices[c].Price;
+                    else
+                        total += (itemPrices[c].Offer as ISameItemOffer).Checkout(amount);
+                }        
             }
 
             return total;
         }
     }
 }
+
 

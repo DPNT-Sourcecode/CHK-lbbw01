@@ -21,7 +21,8 @@ namespace BeFaster.App.Solutions.CHK
 
         public int Checkout(int amount)
         {
-            return (amount / ItemAmountForOffer) * (ItemAmountForOffer - 1) * Price + (amount % ItemAmountForOffer) * Price;
+            return (amount / (ItemAmountForOffer + 1)) * ItemAmountForOffer * Price + (amount % (ItemAmountForOffer + 1)) * Price;
         }
     }
 }
+

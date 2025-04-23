@@ -8,6 +8,7 @@ namespace BeFaster.App.Solutions.CHK
 {
     internal class SameItemFreeOffer : ISameItemOffer
     {
+        // itemAmount for one free item
         public SameItemFreeOffer(int itemAmount, int price) 
         {
             ItemAmountForOffer = itemAmount;
@@ -20,8 +21,9 @@ namespace BeFaster.App.Solutions.CHK
 
         public int Checkout(int amount)
         {
-            return (amount / ItemAmountForOffer) *  Price
+            return (amount / ItemAmountForOffer) * (ItemAmountForOffer - 1) * Price + (amount % ItemAmountForOffer) * Price;
         }
     }
 }
+
 

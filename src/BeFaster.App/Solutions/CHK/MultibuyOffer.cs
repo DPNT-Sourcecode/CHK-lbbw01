@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BeFaster.App.Solutions.CHK
 {
-    internal class MultibuyOffer : IOffer
+    internal class MultibuyOffer : ISameItemOffer
     {
         public MultibuyOffer(int itemAmount, int bulkBuyPrice)
         {
@@ -24,4 +24,5 @@ namespace BeFaster.App.Solutions.CHK
         public List<(int itemAmount, int bulkBuyPrice)> Offers { get; } = [];
     }
 }
+
 

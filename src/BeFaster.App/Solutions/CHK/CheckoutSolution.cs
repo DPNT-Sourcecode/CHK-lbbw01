@@ -72,7 +72,7 @@ namespace BeFaster.App.Solutions.CHK
             {
                 if (itemPrice.Offer is OtherItemFreeOffer offer)
                 {
-                    itemDictionary[itemPrice.SKU] -= itemDictionary[offer.OtherSKU] / offer.ItemAmount;
+                    itemDictionary[offer.OtherSKU] -= itemDictionary[itemPrice.SKU] / offer.ItemAmount;
                     if (itemDictionary[itemPrice.SKU] < 0)
                         itemDictionary[itemPrice.SKU] = 0;
                 }
@@ -96,6 +96,3 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
-
-
-

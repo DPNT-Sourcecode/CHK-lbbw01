@@ -11,7 +11,10 @@ namespace BeFaster.App.Tests.Solutions.CHK
         [TestCase("CAAAAACD", ExpectedResult = 255)]
         [TestCase("BADABCAB", ExpectedResult = 240)]
         [TestCase("EABCD", ExpectedResult = 155)]
+        [TestCase("EEBCD", ExpectedResult = 115)]
+        [TestCase("EEBCBBDEE", ExpectedResult = 225)]
         [TestCase("BADA123BCAB", ExpectedResult = -1)]
+        [TestCase("BBEEBCD", ExpectedResult = 160)]
         [TestCase("amsdf", ExpectedResult = -1)]
         [TestCase(" ,.`!#", ExpectedResult = -1)]
         public int ComputeCheckout(string? skus)
@@ -20,4 +23,5 @@ namespace BeFaster.App.Tests.Solutions.CHK
         }
     }
 }
+
 

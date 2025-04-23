@@ -9,15 +9,10 @@ namespace BeFaster.App.Solutions.CHK
             if (skus == null)
                 return -1;
 
-            var itemDictionary = new Dictionary<Char, int>()
-            {
-                {'A', 0},
-                {'B', 0},
-                {'C', 0},
-                {'D', 0},
-                {'E', 0},
-                {'F', 0}
-            };
+            var itemDictionary = new Dictionary<Char, int>();
+            
+            for (var c = 'A'; c <= 'Z'; c++)
+                itemDictionary[c] = 0;
 
             foreach (var sku in skus)
             {
@@ -42,5 +37,6 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 

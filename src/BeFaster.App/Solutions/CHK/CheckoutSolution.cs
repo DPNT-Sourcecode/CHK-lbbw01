@@ -22,20 +22,72 @@ namespace BeFaster.App.Solutions.CHK
                     return -1;
             }
 
-            itemDictionary['B'] -= itemDictionary['E'] / 2;
+            //itemDictionary['B'] -= itemDictionary['E'] / 2;
 
-            var total = (itemDictionary['A'] / 5) * 200 + ((itemDictionary['A'] % 5) / 3) * 130 + ((itemDictionary['A'] % 5) % 3) * 50 +
-                itemDictionary['C'] * 20 +
-                itemDictionary['D'] * 15 +
-                itemDictionary['E'] * 40 +
-                (itemDictionary['F'] / 3) * 2 * 10 + (itemDictionary['F'] % 3) * 10 +
-                itemDictionary['G'] * 20; //+
-                //itemDictionary['H'] * 20;
+            //var total = (itemDictionary['A'] / 5) * 200 + ((itemDictionary['A'] % 5) / 3) * 130 + ((itemDictionary['A'] % 5) % 3) * 50 +
+            //    itemDictionary['C'] * 20 +
+            //    itemDictionary['D'] * 15 +
+            //    itemDictionary['E'] * 40 +
+            //    (itemDictionary['F'] / 3) * 2 * 10 + (itemDictionary['F'] % 3) * 10 +
+            //    itemDictionary['G'] * 20; //+
+            //    //itemDictionary['H'] * 20;
 
-            if (itemDictionary['B'] > 0)
-                total += (itemDictionary['B'] % 2) * 30 + (itemDictionary['B'] / 2) * 45;
+            //if (itemDictionary['B'] > 0)
+            //    total += (itemDictionary['B'] % 2) * 30 + (itemDictionary['B'] / 2) * 45;
+
+            //return total;
+
+            var itemPrices = new Dictionary<Char, ItemPriceInfo>()
+            {
+                {'A', new ItemPriceInfo('A', 50, new MultibuyOffer(3, 130, 5, 200, 50)) },
+                {'B', new ItemPriceInfo('B', 30, new MultibuyOffer(2, 45, 30)) },
+                {'C', new ItemPriceInfo('C', 20)},
+                {'D', new ItemPriceInfo('D', 15)},
+                {'E', new ItemPriceInfo('E', 40, new OtherItemFreeOffer(2, 'B')) },
+                {'F', new ItemPriceInfo('F', 10, new SameItemFreeOffer(2, 10)) },
+                {'G', new ItemPriceInfo('G', 20 )},
+                {'H', new ItemPriceInfo('H', 10, new MultibuyOffer(5, 45, 10, 80, 10)) },
+                {'I', new ItemPriceInfo('I', 35 )},
+                {'J', new ItemPriceInfo('J', 60 )},
+                {'K', new ItemPriceInfo('K', 80, new MultibuyOffer(2, 150, 80)) },
+                {'L', new ItemPriceInfo('L', 90) },
+                {'M', new ItemPriceInfo('M', 15) },
+                {'N', new ItemPriceInfo('N', 40, new OtherItemFreeOffer(3, 'M')) },
+                {'O', new ItemPriceInfo('O', 10) },
+                {'P', new ItemPriceInfo('P', 50, new MultibuyOffer(5, 200, 50)) },
+                {'Q', new ItemPriceInfo('Q', 30, new MultibuyOffer(3, 80, 30)) },
+                {'R', new ItemPriceInfo('R', 50, new OtherItemFreeOffer(3, 'Q')) },
+                {'S', new ItemPriceInfo('S', 30) },
+                {'T', new ItemPriceInfo('T', 20) },
+                {'U', new ItemPriceInfo('U', 40, new SameItemFreeOffer(3, 40)) },
+                {'V', new ItemPriceInfo('V', 50, new MultibuyOffer(2, 90, 3, 130, 50)) },
+                {'W', new ItemPriceInfo('W', 20) },
+                {'X', new ItemPriceInfo('X', 90) },
+                {'Y', new ItemPriceInfo('Y', 10) },
+                {'Z', new ItemPriceInfo('Z', 50) }
+            };
+            
+            // process offers involving free items of a different SKU
+            foreach (var itemPrice in itemPrices.Values.Where(x => x.Offer is ICrossItemOffer))
+            {
+                var offer = itemPrice.Offer as OtherItemFreeOffer;
+                itemDictionary[itemPrice.SKU] -= itemDictionary[offer.OtherSKU] / offer.ItemAmount;
+                if (itemDictionary[itemPrice.SKU] < 0)
+                    itemDictionary[itemPrice.SKU] = 0;
+            }
+
+            // process all items in the basket
+            var total = 0;
+            for (var c = 'A'; c <= 'Z'; c++)
+            {
+                if (itemPrices[c].Offer is null || itemPrices[c].Offer is not ISameItemOffer)
+                    total += itemDictionary[c] * itemPrices[c].Price;
+                else
+                    total += (itemPrices[c].Offer as ISameItemOffer).Checkout(itemDictionary[c]);
+            }
 
             return total;
         }
     }
 }
+

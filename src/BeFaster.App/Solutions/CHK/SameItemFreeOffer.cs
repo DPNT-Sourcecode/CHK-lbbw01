@@ -6,13 +6,22 @@ using System.Threading.Tasks;
 
 namespace BeFaster.App.Solutions.CHK
 {
-    internal class SameItemFreeOffer
+    internal class SameItemFreeOffer : ISameItemOffer
     {
-        public SameItemFreeOffer(int itemAmount) 
+        public SameItemFreeOffer(int itemAmount, int price) 
         {
-            ItemAmount = itemAmount;
+            ItemAmountForOffer = itemAmount;
+            Price = price;
         }
 
-        public int ItemAmount { get; }
+        public int ItemAmountForOffer { get; }
+
+        public int Price { get; }
+
+        public int Checkout(int amount)
+        {
+            return (amount / ItemAmountForOffer) *  Price
+        }
     }
 }
+

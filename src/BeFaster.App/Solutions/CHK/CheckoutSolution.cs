@@ -22,21 +22,6 @@ namespace BeFaster.App.Solutions.CHK
                     return -1;
             }
 
-            //itemDictionary['B'] -= itemDictionary['E'] / 2;
-
-            //var total = (itemDictionary['A'] / 5) * 200 + ((itemDictionary['A'] % 5) / 3) * 130 + ((itemDictionary['A'] % 5) % 3) * 50 +
-            //    itemDictionary['C'] * 20 +
-            //    itemDictionary['D'] * 15 +
-            //    itemDictionary['E'] * 40 +
-            //    (itemDictionary['F'] / 3) * 2 * 10 + (itemDictionary['F'] % 3) * 10 +
-            //    itemDictionary['G'] * 20; //+
-            //    //itemDictionary['H'] * 20;
-
-            //if (itemDictionary['B'] > 0)
-            //    total += (itemDictionary['B'] % 2) * 30 + (itemDictionary['B'] / 2) * 45;
-
-            //return total;
-
             var groupOffer = new GroupOffer(3, 45);
             var itemPrices = new Dictionary<Char, ItemPriceInfo>()
             {
@@ -98,7 +83,7 @@ namespace BeFaster.App.Solutions.CHK
             for (var c = 'A'; c <= 'Z'; c++)
             {
                 var amount = itemDictionary[c];
-                if (amount > 0)
+                if (amount > 0 && itemPrices[c].Offer is not GroupOffer)
                 {
                     if (itemPrices[c].Offer is null || itemPrices[c].Offer is not ISameItemOffer)
                         total += amount * itemPrices[c].Price;
@@ -111,4 +96,3 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
-

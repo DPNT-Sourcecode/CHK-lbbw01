@@ -68,12 +68,14 @@ namespace BeFaster.App.Solutions.CHK
             };
             
             // process offers involving free items of a different SKU
-            foreach (var itemPrice in itemPrices.Values.Where(x => x.Offer is ICrossItemOffer))
+            foreach (var itemPrice in itemPrices.Values.Where(x => x.Offer is OtherItemFreeOffer))
             {
-                var offer = itemPrice.Offer as OtherItemFreeOffer;
-                itemDictionary[itemPrice.SKU] -= itemDictionary[offer.OtherSKU] / offer.ItemAmount;
-                if (itemDictionary[itemPrice.SKU] < 0)
-                    itemDictionary[itemPrice.SKU] = 0;
+                if (itemPrice.Offer is OtherItemFreeOffer offer)
+                {
+                    itemDictionary[itemPrice.SKU] -= itemDictionary[offer.OtherSKU] / offer.ItemAmount;
+                    if (itemDictionary[itemPrice.SKU] < 0)
+                        itemDictionary[itemPrice.SKU] = 0;
+                }
             }
 
             // process all items in the basket
@@ -94,5 +96,6 @@ namespace BeFaster.App.Solutions.CHK
         }
     }
 }
+
 
 
